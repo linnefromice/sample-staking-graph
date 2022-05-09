@@ -19,6 +19,7 @@ function getStakingPool(address: Address): StakingPoolEntity {
 
 export function handleStake(event: Staked): void {
   const entity = getStakingPool(event.address)
+  entity.totalSupply = entity.totalSupply.plus(event.params.amount.toBigDecimal())
   entity.stakeCount = entity.stakeCount.plus(BigInt.fromString("1"))
   entity.save()
 }

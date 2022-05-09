@@ -19,6 +19,7 @@ function getPool(address: Address): PoolEntity {
 
 export function handleDeposit(event: Deposited): void {
   const entity = getPool(event.address)
+  entity.totalSupply = entity.totalSupply.plus(event.params.amount.toBigDecimal())
   entity.depositCount = entity.depositCount.plus(BigInt.fromString("1"))
   entity.save()
 }
