@@ -4,9 +4,10 @@ schema:
 dataSources:
   - kind: ethereum
     name: Pool
-    network: kovan
+    network: mainnet
     source:
-      address: "0xB3c4f131c6181c8B9345679559bda8782700e501"
+      # address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9" # pool for DAI
+      # address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9" # pool for TrueUSD
       abi: Pool
     mapping:
       kind: ethereum/events
@@ -23,9 +24,9 @@ dataSources:
       file: ./src/mapping-pool.ts
   - kind: ethereum
     name: StakingPool
-    network: kovan
+    network: mainnet
     source:
-      address: "0xfB3fc4C7Ac4607eA6D968F6B6E06Ec15A54c828C"
+      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F"
       abi: StakingPool
     mapping:
       kind: ethereum/events
