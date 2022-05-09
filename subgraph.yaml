@@ -3,7 +3,7 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: PoolDai
+    name: Pool
     network: kovan
     source:
       address: "0xB3c4f131c6181c8B9345679559bda8782700e501"
@@ -18,32 +18,12 @@ dataSources:
         - name: Pool
           file: ./abis/Pool.json
       eventHandlers:
-        - event: Deposited(indexed address, uint256)
-          handler: handleDeposit
-      file: ./src/mapping-pool.ts
-dataSources:
-  - kind: ethereum
-    name: PoolTrueUsd
-    network: kovan
-    source:
-      address: "0x999353F715371C02d24f55D3AF322519246fA434"
-      abi: Pool
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Deposit
-      abis:
-        - name: Pool
-          file: ./abis/Pool.json
-      eventHandlers:
-        - event: Deposited(indexed address, uint256)
+        - event: Deposited(indexed address,uint256)
           handler: handleDeposit
       file: ./src/mapping-pool.ts
   - kind: ethereum
     name: StakingPool
-    network: rinkeby
+    network: kovan
     source:
       address: "0xfB3fc4C7Ac4607eA6D968F6B6E06Ec15A54c828C"
       abi: StakingPool
@@ -54,9 +34,9 @@ dataSources:
       entities:
         - Deposit
       abis:
-        - name: Pool
+        - name: StakingPool
           file: ./abis/StakingPool.json
       eventHandlers:
-        - event: Staked(indexed address, uint256)
+        - event: Staked(indexed address,uint256)
           handler: handleStake
       file: ./src/mapping-staking-pool.ts
