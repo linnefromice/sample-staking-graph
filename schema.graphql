@@ -4,3 +4,44 @@ type ExampleEntity @entity {
   owner: Bytes! # address
   approved: Bytes! # address
 }
+
+# For Contract
+type Pool @entity {
+  id: ID!
+  token: Bytes! # address
+  rewardToken: Bytes! # address
+  totalSupply: BigDecimal!
+  depositCount: BigInt!
+}
+
+type StakingPool @entity {
+  id: ID!
+  token: Bytes! # address
+  rewardToken: Bytes! # address
+  totalSupply: BigDecimal!
+  stakeCount: BigInt!
+}
+
+# For User
+type Deposit @entity {
+  id: ID!
+  user: User! # address
+  contract: Pool!
+  amount: BigInt! # uint256
+  timestamp: BigInt!
+}
+
+type Stake @entity {
+  id: ID!
+  user: User! # address
+  contract: StakingPool!
+  amount: BigInt! # uint256
+  timestamp: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  address: Bytes!
+  deposits: [Deposit!] @dervedFrom(field: "user")
+  stakes: [Stake!] @dervedFrom(field: "user")
+}
