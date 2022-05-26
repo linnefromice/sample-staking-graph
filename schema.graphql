@@ -38,3 +38,10 @@ type User @entity {
   deposits: [Deposit!] @dervedFrom(field: "user")
   stakes: [Stake!] @dervedFrom(field: "user")
 }
+
+# For Web
+type Price @entity {
+  id: ID!
+  priceInUsd: BigDecimal!
+  updatedAt: BigInt!
+}
