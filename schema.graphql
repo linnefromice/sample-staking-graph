@@ -5,6 +5,7 @@ type Pool @entity {
   rewardToken: Bytes! # address
   totalSupply: BigDecimal!
   depositCount: BigInt!
+  withdrawCount: BigInt!
 }
 
 type StakingPool @entity {
@@ -13,6 +14,7 @@ type StakingPool @entity {
   rewardToken: Bytes! # address
   totalSupply: BigDecimal!
   stakeCount: BigInt!
+  unstakeCount: BigInt!
 }
 
 # For User
@@ -24,7 +26,23 @@ type Deposit @entity {
   timestamp: BigInt!
 }
 
+type Withdraw @entity {
+  id: ID!
+  user: User! # address
+  contract: Pool!
+  amount: BigInt! # uint256
+  timestamp: BigInt!
+}
+
 type Stake @entity {
+  id: ID!
+  user: User! # address
+  contract: StakingPool!
+  amount: BigInt! # uint256
+  timestamp: BigInt!
+}
+
+type Unstake @entity {
   id: ID!
   user: User! # address
   contract: StakingPool!

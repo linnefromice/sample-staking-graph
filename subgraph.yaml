@@ -15,12 +15,15 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Deposit
+        - Withdraw
       abis:
         - name: Pool
           file: ./abis/Pool.json
       eventHandlers:
         - event: Deposited(indexed address,uint256)
           handler: handleDeposit
+        - event: Withdrawed(indexed address,uint256)
+          handler: handleWithdraw
       file: ./src/mapping-pool.ts
   - kind: ethereum
     name: StakingPool
@@ -33,11 +36,14 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - Deposit
+        - Stake
+        - Unstake
       abis:
         - name: StakingPool
           file: ./abis/StakingPool.json
       eventHandlers:
         - event: Staked(indexed address,uint256)
           handler: handleStake
+        - event: Unstaked(indexed address,uint256)
+          handler: handleUnstake
       file: ./src/mapping-staking-pool.ts
