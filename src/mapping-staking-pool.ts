@@ -14,6 +14,7 @@ function getStakingPool(address: Address): StakingPoolEntity {
   const _totalSupply = _instance.try_totalSupply()
   newEntity.totalSupply = _totalSupply.reverted ? BigDecimal.zero() : _totalSupply.value.toBigDecimal()
   newEntity.stakeCount = BigInt.fromString("0")
+  newEntity.unstakeCount = BigInt.fromString("0")
   return newEntity
 }
 
@@ -21,5 +22,12 @@ export function handleStake(event: Staked): void {
   const entity = getStakingPool(event.address)
   entity.totalSupply = entity.totalSupply.plus(event.params.amount.toBigDecimal())
   entity.stakeCount = entity.stakeCount.plus(BigInt.fromString("1"))
+  entity.save()
+}
+
+export function handleUnstake(event: Staked): void {
+  const entity = getStakingPool(event.address)
+  entity.totalSupply = entity.totalSupply.minus(event.params.amount.toBigDecimal())
+  entity.unstakeCount = entity.unstakeCount.plus(BigInt.fromString("1"))
   entity.save()
 }
