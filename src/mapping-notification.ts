@@ -1,9 +1,19 @@
 import { Address, BigDecimal, BigInt } from "@graphprotocol/graph-ts"
 import { ResetPool, ResetStakingPool } from "../generated/NotificationContract/NotificationContract"
-import { StakingPool as StakingPoolEntity } from "../generated/schema"
+import { Pool as PoolEntity, StakingPool as StakingPoolEntity } from "../generated/schema"
+
+const resetPool = (address: Address): void => {
+  const entity = PoolEntity.load(address.toHexString())
+  if (!entity) return
+  entity.totalSupply = BigDecimal.zero()
+  entity.depositCount = BigInt.zero()
+  entity.withdrawCount = BigInt.zero()
+  entity.save()
+}
 
 export function handleResetPool(event: ResetPool): void {
-  // TODO
+  resetPool(Address.fromString("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9")) // temp
+  resetPool(Address.fromString("0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9")) // temp
 }
 
 export function handleResetStakingPool(event: ResetStakingPool): void {
